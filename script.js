@@ -1,5 +1,5 @@
 let questions = $('i.icon.fa').closest('div.formulation');
-let all;
+let all = "";
 
 questions.each(function (i, v) {
     let line = i + ": ";
@@ -97,3 +97,34 @@ questions.each(function (i, v) {
 });
 
 console.log(all);
+
+// https://stackoverflow.com/a/18197511/9911189
+function download(filename, text) {
+    let pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+    if (document.createEvent) {
+        let event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    }
+    else {
+        pom.click();
+    }
+}
+
+// https://stackoverflow.com/a/44485468/9911189
+function getFormattedTime() {
+    const today = new Date();
+    const y = today.getFullYear();
+    // JavaScript months are 0-based.
+    const m = today.getMonth() + 1;
+    const d = today.getDate();
+    const h = today.getHours();
+    const mi = today.getMinutes();
+    const s = today.getSeconds();
+    return y + "-" + m + "-" + d + "-" + h + "-" + mi + "-" + s;
+}
+
+download("quiz_" + getFormattedTime() + ".txt", all);
